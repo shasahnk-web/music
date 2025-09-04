@@ -65,7 +65,7 @@ async function uploadFile() {
 }
 
 
-// Function to load existing files
+// Function to  load existing files
 async function loadExistingFiles() {
     try {
         const response = await fetch('/files');
