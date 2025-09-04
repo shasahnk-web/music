@@ -24,18 +24,48 @@
       padding: 40px 32px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.35);
       backdrop-filter: blur(12px);
-      max-width: 600px;
+      max-width: 640px;
+      width: 90%;
     }
     h1 {
       font-size: clamp(20px, 4vw, 32px);
       margin: 0 0 12px;
     }
     p {
-      margin: 0;
+      margin: 0 0 24px;
       font-size: clamp(14px, 2.5vw, 18px);
       color: #e0e7ff;
     }
-    /* Decorative wave at bottom */
+    .files {
+      text-align: left;
+      margin-top: 20px;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+    .file {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin: 6px 0;
+      font-size: 14px;
+    }
+    .file button {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 6px;
+      padding: 6px 10px;
+      color: #fff;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .file button:hover {
+      background: rgba(255,255,255,0.3);
+    }
     .waves {
       position: absolute;
       bottom: 0;
@@ -62,6 +92,8 @@
   <div class="card">
     <h1>This is made by Shashank</h1>
     <p>This server is only for host music link<br>no other changes.</p>
+
+    <div id="files" class="files"></div>
   </div>
 
   <div class="waves" aria-hidden="true">
@@ -70,5 +102,52 @@
             fill="rgba(255,255,255,.15)"/>
     </svg>
   </div>
+
+  <script>
+    const baseURL = "https://shashank-music.vercel.app/";
+
+    async function loadFiles() {
+      try {
+        // Try to fetch directory listing (depends on server setup)
+        const res = await fetch(".");
+        const text = await res.text();
+
+        // Regex to capture ".mp3" file names
+        const regex = /href="([^"]+\.mp3)"/gi;
+        const matches = [...text.matchAll(regex)].map(m => decodeURIComponent(m[1]));
+
+        if (matches.length > 0) {
+          const filesDiv = document.getElementById("files");
+          filesDiv.innerHTML = "<h3>Available MP3 Files:</h3>";
+
+          matches.forEach(file => {
+            const row = document.createElement("div");
+            row.className = "file";
+
+            const name = document.createElement("span");
+            name.textContent = file;
+
+            const btn = document.createElement("button");
+            btn.textContent = "Copy Link";
+            btn.onclick = () => {
+              const link = baseURL + file;
+              navigator.clipboard.writeText(link).then(() => {
+                btn.textContent = "Copied!";
+                setTimeout(() => btn.textContent = "Copy Link", 2000);
+              });
+            };
+
+            row.appendChild(name);
+            row.appendChild(btn);
+            filesDiv.appendChild(row);
+          });
+        }
+      } catch (err) {
+        console.error("Error fetching files:", err);
+      }
+    }
+
+    loadFiles();
+  </script>
 </body>
 </html>
