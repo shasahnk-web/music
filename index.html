@@ -5,7 +5,7 @@
   <title>Server Notice — Made by Shashank</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Favicon using your logo -->
+  <!-- Use your logo as favicon -->
   <link rel="icon" type="image/png" href="/logo.png">
 
   <style>
@@ -126,47 +126,41 @@
   <script>
     const baseURL = "https://shashank-music.vercel.app/";
 
-    async function loadFiles() {
-      try {
-        const res = await fetch(".");
-        const text = await res.text();
+    // 🔹 Manually list your mp3 files here
+    const files = [
+      "shashank.mp3"
+      // add more files from your repo
+    ];
 
-        // Find .mp3 files in directory listing
-        const regex = /href="([^"]+\.mp3)"/gi;
-        const matches = [...text.matchAll(regex)].map(m => decodeURIComponent(m[1]));
+    function renderFiles() {
+      const filesDiv = document.getElementById("files");
+      if (files.length > 0) {
+        filesDiv.innerHTML = "<h3>Available MP3 Files:</h3>";
+        files.forEach(file => {
+          const row = document.createElement("div");
+          row.className = "file";
 
-        if (matches.length > 0) {
-          const filesDiv = document.getElementById("files");
-          filesDiv.innerHTML = "<h3>Available MP3 Files:</h3>";
+          const name = document.createElement("span");
+          name.textContent = file;
 
-          matches.forEach(file => {
-            const row = document.createElement("div");
-            row.className = "file";
+          const btn = document.createElement("button");
+          btn.textContent = "Copy Link";
+          btn.onclick = () => {
+            const link = baseURL + file;
+            navigator.clipboard.writeText(link).then(() => {
+              btn.textContent = "Copied!";
+              setTimeout(() => btn.textContent = "Copy Link", 2000);
+            });
+          };
 
-            const name = document.createElement("span");
-            name.textContent = file;
-
-            const btn = document.createElement("button");
-            btn.textContent = "Copy Link";
-            btn.onclick = () => {
-              const link = baseURL + file;
-              navigator.clipboard.writeText(link).then(() => {
-                btn.textContent = "Copied!";
-                setTimeout(() => btn.textContent = "Copy Link", 2000);
-              });
-            };
-
-            row.appendChild(name);
-            row.appendChild(btn);
-            filesDiv.appendChild(row);
-          });
-        }
-      } catch (err) {
-        console.error("Error fetching files:", err);
+          row.appendChild(name);
+          row.appendChild(btn);
+          filesDiv.appendChild(row);
+        });
       }
     }
 
-    loadFiles();
+    renderFiles();
   </script>
 </body>
 </html>
