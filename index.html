@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Server Notice — Made by Shashank</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(135deg, #0ea5e9, #9333ea);
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 18px;
+      padding: 40px 32px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      backdrop-filter: blur(12px);
+      max-width: 600px;
+    }
+    h1 {
+      font-size: clamp(20px, 4vw, 32px);
+      margin: 0 0 12px;
+    }
+    p {
+      margin: 0;
+      font-size: clamp(14px, 2.5vw, 18px);
+      color: #e0e7ff;
+    }
+    /* Decorative wave at bottom */
+    .waves {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 200%;
+      height: 120px;
+      overflow: hidden;
+      line-height: 0;
+    }
+    .waves svg {
+      position: relative;
+      display: block;
+      width: 200%;
+      height: 100%;
+      animation: drift 18s linear infinite;
+    }
+    @keyframes drift {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>This is made by Shashank</h1>
+    <p>This server is only for host music link<br>no other changes.</p>
+  </div>
+
+  <div class="waves" aria-hidden="true">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M0 60 C 150 90 350 0 600 60 C 850 120 1050 30 1200 60 L 1200 120 L 0 120 Z" 
+            fill="rgba(255,255,255,.15)"/>
+    </svg>
+  </div>
+</body>
+</html>
