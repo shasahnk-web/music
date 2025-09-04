@@ -4,6 +4,10 @@
   <meta charset="utf-8">
   <title>Server Notice — Made by Shashank</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Favicon using your logo -->
+  <link rel="icon" type="image/png" href="/logo.png">
+
   <style>
     body {
       margin: 0;
@@ -27,6 +31,16 @@
       max-width: 640px;
       width: 90%;
     }
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 16px;
+      display: block;
+      border-radius: 16px;
+      object-fit: contain;
+      background: rgba(255,255,255,0.2);
+      padding: 8px;
+    }
     h1 {
       font-size: clamp(20px, 4vw, 32px);
       margin: 0 0 12px;
@@ -41,6 +55,11 @@
       margin-top: 20px;
       max-height: 250px;
       overflow-y: auto;
+    }
+    .files h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      color: #fff;
     }
     .file {
       display: flex;
@@ -90,6 +109,7 @@
 </head>
 <body>
   <div class="card">
+    <img src="/logo.png" alt="Shashank Logo" class="logo">
     <h1>This is made by Shashank</h1>
     <p>This server is only for host music link<br>no other changes.</p>
 
@@ -108,11 +128,10 @@
 
     async function loadFiles() {
       try {
-        // Try to fetch directory listing (depends on server setup)
         const res = await fetch(".");
         const text = await res.text();
 
-        // Regex to capture ".mp3" file names
+        // Find .mp3 files in directory listing
         const regex = /href="([^"]+\.mp3)"/gi;
         const matches = [...text.matchAll(regex)].map(m => decodeURIComponent(m[1]));
 
