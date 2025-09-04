@@ -7,7 +7,7 @@ const fs = require('fs');
 const app = express();
 const PORT = 5000;
 
-// Enable CORS and JSON parsing
+// Enable CORS  and JSON parsing
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
